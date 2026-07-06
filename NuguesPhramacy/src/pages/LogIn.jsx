@@ -1,6 +1,34 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function LogIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      setMessage("Login successful");
+      console.log("Backend response:", data);
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
   return (
     <section className="flex min-h-screen items-center justify-center bg-[#F9FCFF] px-4 py-8">
       <div className="flex w-full max-w-md flex-col items-center">
@@ -28,17 +56,21 @@ function LogIn() {
 
           <div className="text-center text-sm text-[#6A7282]">or</div>
 
-          <form className="flex flex-col gap-3">
+          <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
             <input
               type="email"
               placeholder="Email"
               className="rounded-xl border border-gray-300 px-3 py-2.5 outline-none focus:border-[#1B1967]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <input
               type="password"
               placeholder="Password (min 6 chars)"
               className="rounded-xl border border-gray-300 px-3 py-2.5 outline-none focus:border-[#1B1967]"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <a href="#" className="text-[13px] font-semibold text-[#1B1967]">
@@ -51,6 +83,10 @@ function LogIn() {
               Sign in
             </button>
           </form>
+
+          {message && (
+            <p className="text-sm text-center text-[#1B1967]">{message}</p>
+          )}
 
           <div className="flex items-center justify-center gap-1">
             <h2 className="text-[14px] font-medium text-[#5B6379]">New to Nuges?</h2>
