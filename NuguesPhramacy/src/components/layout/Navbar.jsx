@@ -11,9 +11,13 @@ function Navbar() {
         <>
             {/* Top promo bar */}
             <div className="w-full bg-[#1B1967] text-white text-sm">
-                <div className="mx-auto max-w-7xl px-4 py-1 flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                        <span className="t">Free delivery within Egbeda on orders over ₦15,000</span>
+                <div className="mx-auto max-w-7xl px-4 py-2 flex items-center justify-between">
+                    <div className="flex items-center gap-6 ">
+                        <span>
+                            <h3 className="text-xs text-gray font-semibold">
+                                Free delivery within Egbeda on orders over ₦15,000
+                            </h3>
+                         </span>
                     </div>
                     <div className="flex items-center gap-4 text-xs opacity-90">
                         <span className="flex items-center gap-2"><i class="fa-solid fa-phone"></i>+234 803 359 7959</span>
