@@ -11,6 +11,7 @@ import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/footer";
+import Checkout from "./pages/Checkout";
 
 function AppLayout() {
   const location = useLocation();
@@ -110,6 +111,18 @@ function AppLayout() {
             />
           }
         />
+        
+<Route
+  path="/checkout"
+  element={
+    <Checkout
+      cart={cart}
+      deliveryFee={1500}
+      vatRate={0.075}
+      currencySymbol="₦"
+    />
+  }
+/>
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
       {!hideFooter && <Footer />}
