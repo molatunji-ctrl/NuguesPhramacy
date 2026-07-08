@@ -1,6 +1,6 @@
 function Contact() {
   return (
-    <section className="bg-[#F9FCFF] min-h-screen px-4 py-6 sm:px-6 lg:px-8">
+    <section className="bg-[#F9FCFF] min-h-screen px-4 py-5 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl rounded-3xl bg-white p-6 shadow-sm sm:p-10">
         <div className="space-y-6">
           <div>

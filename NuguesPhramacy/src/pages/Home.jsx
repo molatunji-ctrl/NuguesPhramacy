@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <main className="bg-[#F9FCFF] text-slate-900">
-      <section className="overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="max-w-2xl">
+      <section className="hero min-h-screen overflow-hidden px-4 py-12 sm:px-6 lg:px-8 flex items-center justify-center text-center">
+        <div className="mx-auto w-full max-w-5xl">
+          <div className="grid items-center gap-12">
+            <div className="mx-auto max-w-2xl">
               <p className="text-sm uppercase tracking-[0.35em] text-[#7176C4]">Trusted since 2008 · Egbeda, Lagos</p>
               <h1 className="mt-6 text-4xl font-semibold leading-tight text-[#141432] sm:text-5xl">
                 Your partner in sound health.
@@ -46,7 +46,7 @@ function Home() {
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-white/30 bg-white/90 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
+            {/* <div className="rounded-[2rem] border border-white/30 bg-white/90 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
               <div className="rounded-3xl bg-[#F6F8FF] p-6 text-center">
                 <p className="text-sm uppercase tracking-[0.35em] text-[#7176C4]">Fast care</p>
                 <h2 className="mt-4 text-3xl font-semibold text-[#141432]">Speak with a pharmacist today.</h2>
@@ -54,19 +54,19 @@ function Home() {
                   Get professional advice, prescription support, and health guidance whenever you need it.
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
 
-      <section id="contact" className="bg-[#171B57] px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+      <section id="contact" className="bg-[#171B57] px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div className="text-white">
-            <p className="text-sm uppercase tracking-[0.35em] text-[#A5B4FC]">Visit us</p>
-            <h2 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#A5B4FC]">Visit us</p>
+            <h2 className="mt-4 text-3xl font-semibold leading-tight sm:text-4xl">
               We're here when you need us.
             </h2>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-[#CBD5E1]">
+            <p className="mt-4 max-w-xl text-base leading-7 text-[#CBD5E1]">
               Walk in for a consultation, call ahead for a prescription, or send us a message — we respond within the hour.
             </p>
 
