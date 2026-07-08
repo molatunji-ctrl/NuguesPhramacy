@@ -122,6 +122,44 @@ function Home() {
         </div>
       </section>
 
+        {/* Shop by category */}
+        <section className="px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[0.35em] text-[#7176C4]">Shop by category</p>
+                <h2 className="mt-2 text-3xl font-semibold text-[#0B1020]">Everything for your wellbeing</h2>
+              </div>
+              <a href="/Shop" className="text-[#23195f] font-medium">View all categories →</a>
+            </div>
+
+            <div className="mt-6 -mx-4 overflow-x-auto py-10 px-4">
+              <div className="flex gap-4 w-max">
+                {[
+                  { title: 'Prescription', count: '1,200+ items', icon: 'fa-pill' },
+                  { title: 'Wellness', count: '480+ items', icon: 'fa-heart-circle-plus' },
+                  { title: 'Mother & Baby', count: '260+ items', icon: 'fa-baby' },
+                  { title: 'Personal Care', count: '390+ items', icon: 'fa-sparkles' },
+                  { title: 'Medical Devices', count: '120+ items', icon: 'fa-stethoscope' },
+                  { title: 'Supplements', count: '540+ items', icon: 'fa-shield-halved' },
+                ].map((c) => (
+                  <a key={c.title} href="/Shop" className="group block min-w-[200px] flex-shrink-0 rounded-xl border border-gray-100 bg-white p-4 hover:shadow-sm transition">
+                    <div className="flex items-center gap-3">
+                      <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-[#EEF2FF] text-[#23195f]">
+                        <i className={`fa-solid ${c.icon} text-sm`}></i>
+                      </div>
+                      <div>
+                        <div className="text-base font-semibold text-[#0B1020] group-hover:text-[#23195f]">{c.title}</div>
+                        <div className="mt-1 text-xs text-slate-500">{c.count}</div>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
       <section id="contact" className="bg-[#171B57] px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div className="text-white">
