@@ -14,23 +14,6 @@ const conditions = [
   { id: "others", label: "Others..." },
 ];
 
-function PriceRangeSlider() {
-  return (
-    <div>
-      <h3 className="text-sm font-semibold text-[#141432]">Price</h3>
-      <div className="relative mt-5 h-1 rounded-full bg-slate-200">
-        <div className="absolute left-[15%] right-[20%] top-0 h-1 rounded-full bg-[#23195f]"></div>
-        <span className="absolute left-[15%] top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#23195f] bg-white shadow"></span>
-        <span className="absolute right-[20%] top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#23195f] bg-white shadow"></span>
-      </div>
-      <div className="mt-3 flex justify-between text-xs font-medium text-slate-500">
-        <span>$10 - $30</span>
-        <span>$70 - $80</span>
-      </div>
-    </div>
-  );
-}
-
 function Shop() {
   const [active, setActive] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -132,9 +115,6 @@ function Shop() {
               </ul>
             </div>
 
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-              <PriceRangeSlider />
-            </div>
           </aside>
 
           <main className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-10">
