@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import googleLogo from "../assets/Icons/google.ico"
 
 function SignIn() {
   const [name, setName] = useState("");
@@ -52,6 +53,7 @@ function SignIn() {
             type="button"
             className="flex items-center justify-center rounded-xl border border-gray-300 py-2.5 font-semibold text-[#100F27]"
           >
+            <img src={googleLogo} alt="Google" className="mr-2 h-5 w-5" />
             Continue with Google
           </button>
 
@@ -104,7 +106,7 @@ function SignIn() {
 
         <div className="mt-4 text-center">
           <Link to="/home" className="text-sm text-[#6A7282] hover:text-[#1B1967]">
-            Back to Home
+            <i class="fa-solid fa-arrow-left-long"></i>Back to Home
           </Link>
         </div>
       </div>
