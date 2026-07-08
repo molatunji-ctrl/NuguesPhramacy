@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const categories = [
@@ -14,9 +14,47 @@ const conditions = [
   { id: "others", label: "Others..." },
 ];
 
+function SkeletonSidebar() {
+  return (
+    <div className="space-y-6">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="skeleton h-4 w-32"></div>
+          <div className="mt-4 space-y-2">
+            <div className="skeleton h-9 w-full rounded-lg"></div>
+            <div className="skeleton h-9 w-full rounded-lg"></div>
+            <div className="skeleton h-9 w-3/4 rounded-lg"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function SkeletonMain() {
+  return (
+    <div className="flex min-h-[520px] flex-col items-center justify-center text-center">
+      <div className="skeleton h-24 w-24 rounded-3xl"></div>
+      <div className="skeleton mt-6 h-8 w-72"></div>
+      <div className="skeleton mt-3 h-4 w-full max-w-xl"></div>
+      <div className="skeleton mt-2 h-4 w-3/4 max-w-xl"></div>
+      <div className="mt-8 flex gap-3">
+        <div className="skeleton h-11 w-36 rounded-full"></div>
+        <div className="skeleton h-11 w-44 rounded-full"></div>
+      </div>
+    </div>
+  );
+}
+
 function Shop() {
   const [active, setActive] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 900);
+    return () => clearTimeout(t);
+  }, []);
 
   const select = (type, item) => {
     setActive({ type, id: item.id, label: item.label });
@@ -55,125 +93,134 @@ function Shop() {
           <aside
             className={`${mobileOpen ? "block" : "hidden"} space-y-6 lg:sticky lg:top-6 lg:block lg:self-start`}
           >
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-              <h3 className="text-sm font-semibold text-[#141432]">Find a Medication</h3>
-              <div className="relative mt-3">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-                  <i className="fa-solid fa-magnifying-glass text-sm"></i>
-                </span>
-                <input
-                  type="text"
-                  placeholder="Search Medication"
-                  className="h-11 w-full rounded-full border border-gray-200 bg-slate-50 pl-10 pr-4 text-sm outline-none transition focus:border-[#23195f] focus:bg-white"
-                />
-              </div>
-            </div>
+            {loading ? (
+              <SkeletonSidebar />
+            ) : (
+              <>
+                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                  <h3 className="text-sm font-semibold text-[#141432]">Find a Medication</h3>
+                  <div className="relative mt-3">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                      <i className="fa-solid fa-magnifying-glass text-sm"></i>
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Search Medication"
+                      className="h-11 w-full rounded-full border border-gray-200 bg-slate-50 pl-10 pr-4 text-sm outline-none transition focus:border-[#23195f] focus:bg-white"
+                    />
+                  </div>
+                </div>
 
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-              <h3 className="text-sm font-semibold text-[#141432]">Categories</h3>
-              <ul className="mt-3 space-y-1">
-                {categories.map((c) => {
-                  const isActive = active?.id === c.id;
-                  return (
-                    <li key={c.id}>
-                      <button
-                        onClick={() => select("category", c)}
-                        className={`w-full rounded-lg px-3 py-2 text-left text-sm transition ${
-                          isActive
-                            ? "bg-[#EEF0FF] font-semibold text-[#23195f]"
-                            : "text-slate-600 hover:bg-slate-50 hover:text-[#23195f]"
-                        }`}
-                      >
-                        {c.label}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                  <h3 className="text-sm font-semibold text-[#141432]">Categories</h3>
+                  <ul className="mt-3 space-y-1">
+                    {categories.map((c) => {
+                      const isActive = active?.id === c.id;
+                      return (
+                        <li key={c.id}>
+                          <button
+                            onClick={() => select("category", c)}
+                            className={`w-full rounded-lg px-3 py-2 text-left text-sm transition ${
+                              isActive
+                                ? "bg-[#EEF0FF] font-semibold text-[#23195f]"
+                                : "text-slate-600 hover:bg-slate-50 hover:text-[#23195f]"
+                            }`}
+                          >
+                            {c.label}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
 
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-              <h3 className="text-sm font-semibold text-[#141432]">Condition</h3>
-              <ul className="mt-3 space-y-1">
-                {conditions.map((c) => {
-                  const isActive = active?.id === c.id;
-                  return (
-                    <li key={c.id}>
-                      <button
-                        onClick={() => select("condition", c)}
-                        className={`w-full rounded-lg px-3 py-2 text-left text-sm transition ${
-                          isActive
-                            ? "bg-[#EEF0FF] font-semibold text-[#23195f]"
-                            : "text-slate-600 hover:bg-slate-50 hover:text-[#23195f]"
-                        }`}
-                      >
-                        {c.label}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
+                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                  <h3 className="text-sm font-semibold text-[#141432]">Condition</h3>
+                  <ul className="mt-3 space-y-1">
+                    {conditions.map((c) => {
+                      const isActive = active?.id === c.id;
+                      return (
+                        <li key={c.id}>
+                          <button
+                            onClick={() => select("condition", c)}
+                            className={`w-full rounded-lg px-3 py-2 text-left text-sm transition ${
+                              isActive
+                                ? "bg-[#EEF0FF] font-semibold text-[#23195f]"
+                                : "text-slate-600 hover:bg-slate-50 hover:text-[#23195f]"
+                            }`}
+                          >
+                            {c.label}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </>
+            )}
           </aside>
 
           <main className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-10">
-            <div className="flex min-h-[520px] flex-col items-center justify-center text-center">
-              <div className="relative">
-                <div className="absolute inset-0 -m-4 rounded-full bg-[#EEF0FF] blur-xl"></div>
-                <div className="relative inline-flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-[#EEF0FF] to-[#FCE7F3] text-[#23195f] shadow-sm">
-                  <i className="fa-solid fa-box-open text-3xl"></i>
+            {loading ? (
+              <SkeletonMain />
+            ) : (
+              <div className="flex min-h-[520px] flex-col items-center justify-center text-center">
+                <div className="relative">
+                  <div className="absolute inset-0 -m-4 rounded-full bg-[#EEF0FF] blur-xl"></div>
+                  <div className="relative inline-flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-[#EEF0FF] to-[#FCE7F3] text-[#23195f] shadow-sm">
+                    <i className="fa-solid fa-box-open text-3xl"></i>
+                  </div>
                 </div>
-              </div>
 
-              <h2 className="mt-6 text-2xl font-semibold text-[#141432] sm:text-3xl">
-                {active ? `No products available in ${active.label}` : "No products available in this section"}
-              </h2>
+                <h2 className="mt-6 text-2xl font-semibold text-[#141432] sm:text-3xl">
+                  {active ? `No products available in ${active.label}` : "No products available in this section"}
+                </h2>
 
-              <p className="mt-3 max-w-xl text-sm leading-7 text-slate-500 sm:text-base">
-                We are currently updating our digital inventory for this department.
-                Please check back later or try using the medication search bar on the left sidebar.
-              </p>
+                <p className="mt-3 max-w-xl text-sm leading-7 text-slate-500 sm:text-base">
+                  We are currently updating our digital inventory for this department.
+                  Please check back later or try using the medication search bar on the left sidebar.
+                </p>
 
-              {active && (
-                <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#EEF0FF] px-4 py-1.5 text-xs font-semibold text-[#23195f]">
-                  <i className="fa-solid fa-filter"></i>
-                  {active.type === "category" ? "Category" : "Condition"}: {active.label}
-                  <button
-                    onClick={() => setActive(null)}
-                    className="ml-1 text-[#23195f]/60 hover:text-[#23195f]"
-                    aria-label="Clear filter"
+                {active && (
+                  <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#EEF0FF] px-4 py-1.5 text-xs font-semibold text-[#23195f]">
+                    <i className="fa-solid fa-filter"></i>
+                    {active.type === "category" ? "Category" : "Condition"}: {active.label}
+                    <button
+                      onClick={() => setActive(null)}
+                      className="ml-1 text-[#23195f]/60 hover:text-[#23195f]"
+                      aria-label="Clear filter"
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                )}
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    to="/home"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#23195f] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#141444]"
                   >
-                    <i className="fa-solid fa-xmark"></i>
+                    <i className="fa-solid fa-house"></i>
+                    Back to Home
+                  </Link>
+                  <button
+                    onClick={() => {
+                      const input = document.querySelector('input[placeholder="Search Medication"]');
+                      if (input) input.focus();
+                    }}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#23195f] bg-white px-5 py-2.5 text-sm font-semibold text-[#23195f] transition hover:bg-[#EEF0FF]"
+                  >
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                    Search medications
                   </button>
                 </div>
-              )}
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  to="/home"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#23195f] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#141444]"
-                >
-                  <i className="fa-solid fa-house"></i>
-                  Back to Home
-                </Link>
-                <button
-                  onClick={() => {
-                    const input = document.querySelector('input[placeholder="Search Medication"]');
-                    if (input) input.focus();
-                  }}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#23195f] bg-white px-5 py-2.5 text-sm font-semibold text-[#23195f] transition hover:bg-[#EEF0FF]"
-                >
-                  <i className="fa-solid fa-magnifying-glass"></i>
-                  Search medications
-                </button>
+                <p className="mt-8 inline-flex items-center gap-2 text-xs text-slate-400">
+                  <i className="fa-solid fa-bell"></i>
+                  Want an alert when items arrive? Notify me is coming soon.
+                </p>
               </div>
-
-              <p className="mt-8 inline-flex items-center gap-2 text-xs text-slate-400">
-                <i className="fa-solid fa-bell"></i>
-                Want an alert when items arrive? Notify me is coming soon.
-              </p>
-            </div>
+            )}
           </main>
         </div>
       </div>
