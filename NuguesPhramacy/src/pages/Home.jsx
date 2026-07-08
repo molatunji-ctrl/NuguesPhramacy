@@ -1,13 +1,154 @@
+import { Link } from "react-router-dom";
+
 function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#F9FCFF] px-4">
-      <div className="max-w-md rounded-2xl bg-white p-8 text-center shadow-sm">
-        <h1 className="text-3xl font-semibold text-[#1B1967]">Welcome to Nuges Pharmacy</h1>
-        <p className="mt-3 text-gray-600">
-          This is your home page. You can continue to login or create an account.
-        </p>
-      </div>
-    </div>
+    <main className="bg-[#F9FCFF] text-slate-900">
+      <section className="overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="max-w-2xl">
+              <p className="text-sm uppercase tracking-[0.35em] text-[#7176C4]">Trusted since 2008 · Egbeda, Lagos</p>
+              <h1 className="mt-6 text-4xl font-semibold leading-tight text-[#141432] sm:text-5xl">
+                Your partner in sound health.
+              </h1>
+              <p className="mt-6 max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
+                Quality medicines, wellness products and personal pharmacist consultations — delivered with the care your family deserves.
+              </p>
+
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <Link
+                  to="/Shop"
+                  className="inline-flex items-center justify-center rounded-full bg-[#23195f] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#23195f]/20 transition hover:bg-[#141444]"
+                >
+                  Shop Medicines
+                </Link>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-[#141432] shadow-sm transition hover:border-[#23195f] hover:text-[#23195f]"
+                >
+                  Book a Consultation
+                </a>
+              </div>
+
+              <div className="mt-14 grid gap-6 sm:grid-cols-3">
+                <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
+                  <p className="text-3xl font-semibold text-[#23195f]">15+</p>
+                  <p className="mt-2 text-sm text-slate-500">Years caring</p>
+                </div>
+                <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
+                  <p className="text-3xl font-semibold text-[#23195f]">10k+</p>
+                  <p className="mt-2 text-sm text-slate-500">Customers</p>
+                </div>
+                <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
+                  <p className="text-3xl font-semibold text-[#23195f]">3k+</p>
+                  <p className="mt-2 text-sm text-slate-500">Products</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-white/30 bg-white/90 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
+              <div className="rounded-3xl bg-[#F6F8FF] p-6 text-center">
+                <p className="text-sm uppercase tracking-[0.35em] text-[#7176C4]">Fast care</p>
+                <h2 className="mt-4 text-3xl font-semibold text-[#141432]">Speak with a pharmacist today.</h2>
+                <p className="mt-4 text-slate-600">
+                  Get professional advice, prescription support, and health guidance whenever you need it.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="bg-[#171B57] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div className="text-white">
+            <p className="text-sm uppercase tracking-[0.35em] text-[#A5B4FC]">Visit us</p>
+            <h2 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
+              We're here when you need us.
+            </h2>
+            <p className="mt-4 max-w-2xl text-lg leading-8 text-[#CBD5E1]">
+              Walk in for a consultation, call ahead for a prescription, or send us a message — we respond within the hour.
+            </p>
+
+            <div className="mt-10 space-y-6 text-sm sm:text-base">
+              <div className="flex items-start gap-4">
+                <span className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-white">
+                  <i className="fa-solid fa-location-dot"></i>
+                </span>
+                <div>
+                  <p className="text-white">26/28, Karimu Laka Street, By Old Oba's Palace, Egbeda, Lagos.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <span className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-white">
+                  <i className="fa-solid fa-phone"></i>
+                </span>
+                <div className="space-y-1 text-white/90">
+                  <p>+234 803 359 7959 (mobile)</p>
+                  <p>+234 906 000 5227 (office)</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <span className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-white">
+                  <i className="fa-regular fa-envelope"></i>
+                </span>
+                <div className="space-y-1 text-white/90">
+                  <p>nugespharmaceuticals@gmail.com</p>
+                  <p>nugespharmacy@gmail.com</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <span className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-white">
+                  <i className="fa-brands fa-instagram"></i>
+                </span>
+                <p className="text-white/90">@nugespharmacy</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] bg-white p-6 shadow-2xl sm:p-10">
+            <div>
+              <h3 className="text-2xl font-semibold text-slate-900">Send us a message</h3>
+              <p className="mt-2 text-slate-600">We'll reply by phone or email shortly.</p>
+            </div>
+
+            <form className="mt-8 space-y-4">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input
+                  type="text"
+                  placeholder="Full name"
+                  className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition focus:border-[#23195f] focus:bg-white"
+                />
+                <input
+                  type="text"
+                  placeholder="Phone"
+                  className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition focus:border-[#23195f] focus:bg-white"
+                />
+              </div>
+              <input
+                type="email"
+                placeholder="Email"
+                className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition focus:border-[#23195f] focus:bg-white"
+              />
+              <textarea
+                rows="5"
+                placeholder="How can we help?"
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm outline-none transition focus:border-[#23195f] focus:bg-white"
+              />
+              <button
+                type="submit"
+                className="w-full rounded-2xl bg-[#171B57] px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#0f1343]"
+              >
+                Send message
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 

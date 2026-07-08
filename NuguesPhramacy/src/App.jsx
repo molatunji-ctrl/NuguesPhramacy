@@ -5,8 +5,8 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import Service from "./pages/Service";
 import About from "./pages/About";
-import Contact from "./pages/Contact";
 import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/footer";
 
 function AppLayout() {
   const location = useLocation();
@@ -23,9 +23,10 @@ function AppLayout() {
         <Route path="/Shop" element={<Shop />} />
         <Route path="/About" element={<About />} />
         <Route path="/Service" element={<Service />} />
-        <Route path="/Contact" element={<Contact />} />
+        <Route path="/Contact" element={<Navigate to="/home#contact" replace />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
+      <Footer />
     </>
   );
 }

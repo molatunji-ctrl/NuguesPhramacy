@@ -26,7 +26,7 @@ function Navbar() {
                 </div>
             </div>
 
-            <header className="w-full bg-white border-b border-gray-200">
+            <header className="w-full bg-[#F9FCFF] border-b border-gray-200">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         {/* Left: logo */}
@@ -46,7 +46,7 @@ function Navbar() {
                             <NavLink to="/Shop" className={linkClass}>Shop</NavLink>
                             <NavLink to="/Service" className={linkClass}>Services</NavLink>
                             <NavLink to="/About" className={linkClass}>About</NavLink>
-                            <NavLink to="/Contact" className={linkClass}>Contact</NavLink>
+                            <Link to="/home#contact" className="text-gray-700 hover:text-[#23195f]">Contact</Link>
                         </nav>
 
                         {/* Right: search + actions */}
@@ -100,7 +100,7 @@ function Navbar() {
                             <NavLink to="/Shop" className={linkClass} onClick={() => setOpen(false)}>Shop</NavLink>
                             <NavLink to="/Service" className={linkClass} onClick={() => setOpen(false)}>Services</NavLink>
                             <NavLink to="/About" className={linkClass} onClick={() => setOpen(false)}>About</NavLink>
-                            <NavLink to="/Contact" className={linkClass} onClick={() => setOpen(false)}>Contact</NavLink>
+                            <Link to="/home#contact" className="text-gray-700 hover:text-[#23195f]" onClick={() => setOpen(false)}>Contact</Link>
                         </div>
                     </div>
                 )}
