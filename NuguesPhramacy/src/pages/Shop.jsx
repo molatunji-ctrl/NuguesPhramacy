@@ -18,12 +18,12 @@ function SkeletonSidebar() {
   return (
     <div className="space-y-6">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-          <div className="skeleton h-4 w-32"></div>
-          <div className="mt-4 space-y-2">
-            <div className="skeleton h-9 w-full rounded-lg"></div>
-            <div className="skeleton h-9 w-full rounded-lg"></div>
-            <div className="skeleton h-9 w-3/4 rounded-lg"></div>
+        <div key={i} className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <div className="skeleton h-5 w-40"></div>
+          <div className="mt-5 space-y-3">
+            <div className="skeleton h-12 w-full rounded-xl"></div>
+            <div className="skeleton h-12 w-full rounded-xl"></div>
+            <div className="skeleton h-12 w-3/4 rounded-xl"></div>
           </div>
         </div>
       ))}
@@ -33,14 +33,14 @@ function SkeletonSidebar() {
 
 function SkeletonMain() {
   return (
-    <div className="flex min-h-[520px] flex-col items-center justify-center text-center">
-      <div className="skeleton h-24 w-24 rounded-3xl"></div>
-      <div className="skeleton mt-6 h-8 w-72"></div>
-      <div className="skeleton mt-3 h-4 w-full max-w-xl"></div>
-      <div className="skeleton mt-2 h-4 w-3/4 max-w-xl"></div>
-      <div className="mt-8 flex gap-3">
-        <div className="skeleton h-11 w-36 rounded-full"></div>
-        <div className="skeleton h-11 w-44 rounded-full"></div>
+    <div className="flex min-h-[600px] flex-col items-center justify-center text-center">
+      <div className="skeleton h-32 w-32 rounded-[2rem]"></div>
+      <div className="skeleton mt-8 h-10 w-96"></div>
+      <div className="skeleton mt-4 h-5 w-full max-w-2xl"></div>
+      <div className="skeleton mt-3 h-5 w-3/4 max-w-2xl"></div>
+      <div className="mt-10 flex gap-4">
+        <div className="skeleton h-14 w-44 rounded-full"></div>
+        <div className="skeleton h-14 w-52 rounded-full"></div>
       </div>
     </div>
   );
@@ -62,34 +62,37 @@ function Shop() {
   };
 
   return (
-    <section className="bg-[#F6F7FB] min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+    <section className="bg-[#F6F7FB] min-h-screen px-4 py-10 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+        {/* Header */}
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-[#141432] sm:text-3xl">
+            <h1 className="text-3xl font-semibold leading-tight text-[#141432] sm:text-4xl lg:text-[2.75rem]">
               <span className="text-[#23195f]">Shop Medicines</span>
-              <span className="text-slate-400"> | </span>
+              <span className="text-slate-300"> | </span>
               <span className="font-normal text-slate-600">Browse and Refill Your Prescriptions</span>
             </h1>
           </div>
           <Link
             to="/Shop"
             aria-label="cart"
-            className="relative inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#23195f] shadow-sm transition hover:bg-[#EEF0FF]"
+            className="relative inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#23195f] shadow-sm transition hover:bg-[#EEF0FF]"
           >
-            <i className="fa-solid fa-cart-shopping text-lg"></i>
+            <i className="fa-solid fa-cart-shopping text-xl"></i>
           </Link>
         </div>
 
+        {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen((s) => !s)}
-          className="mb-4 inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-[#23195f] shadow-sm lg:hidden"
+          className="mb-5 inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-base font-semibold text-[#23195f] shadow-sm lg:hidden"
         >
           <i className="fa-solid fa-sliders"></i>
           {mobileOpen ? "Hide filters" : "Show filters"}
         </button>
 
-        <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+        <div className="grid gap-8 lg:grid-cols-[340px_1fr]">
+          {/* Sidebar */}
           <aside
             className={`${mobileOpen ? "block" : "hidden"} space-y-6 lg:sticky lg:top-6 lg:block lg:self-start`}
           >
@@ -97,30 +100,32 @@ function Shop() {
               <SkeletonSidebar />
             ) : (
               <>
-                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-                  <h3 className="text-sm font-semibold text-[#141432]">Find a Medication</h3>
-                  <div className="relative mt-3">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-                      <i className="fa-solid fa-magnifying-glass text-sm"></i>
+                {/* Find a Medication */}
+                <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                  <h3 className="text-base font-semibold text-[#141432]">Find a Medication</h3>
+                  <div className="relative mt-4">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                      <i className="fa-solid fa-magnifying-glass text-base"></i>
                     </span>
                     <input
                       type="text"
                       placeholder="Search Medication"
-                      className="h-11 w-full rounded-full border border-gray-200 bg-slate-50 pl-10 pr-4 text-sm outline-none transition focus:border-[#23195f] focus:bg-white"
+                      className="h-12 w-full rounded-full border border-gray-200 bg-slate-50 pl-12 pr-4 text-base outline-none transition focus:border-[#23195f] focus:bg-white"
                     />
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-                  <h3 className="text-sm font-semibold text-[#141432]">Categories</h3>
-                  <ul className="mt-3 space-y-1">
+                {/* Categories */}
+                <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                  <h3 className="text-base font-semibold text-[#141432]">Categories</h3>
+                  <ul className="mt-4 space-y-1.5">
                     {categories.map((c) => {
                       const isActive = active?.id === c.id;
                       return (
                         <li key={c.id}>
                           <button
                             onClick={() => select("category", c)}
-                            className={`w-full rounded-lg px-3 py-2 text-left text-sm transition ${
+                            className={`w-full rounded-xl px-4 py-3 text-left text-base transition ${
                               isActive
                                 ? "bg-[#EEF0FF] font-semibold text-[#23195f]"
                                 : "text-slate-600 hover:bg-slate-50 hover:text-[#23195f]"
@@ -134,16 +139,17 @@ function Shop() {
                   </ul>
                 </div>
 
-                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-                  <h3 className="text-sm font-semibold text-[#141432]">Condition</h3>
-                  <ul className="mt-3 space-y-1">
+                {/* Condition */}
+                <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                  <h3 className="text-base font-semibold text-[#141432]">Condition</h3>
+                  <ul className="mt-4 space-y-1.5">
                     {conditions.map((c) => {
                       const isActive = active?.id === c.id;
                       return (
                         <li key={c.id}>
                           <button
                             onClick={() => select("condition", c)}
-                            className={`w-full rounded-lg px-3 py-2 text-left text-sm transition ${
+                            className={`w-full rounded-xl px-4 py-3 text-left text-base transition ${
                               isActive
                                 ? "bg-[#EEF0FF] font-semibold text-[#23195f]"
                                 : "text-slate-600 hover:bg-slate-50 hover:text-[#23195f]"
@@ -160,29 +166,36 @@ function Shop() {
             )}
           </aside>
 
-          <main className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-10">
+          {/* Main content */}
+          <main className="rounded-3xl border border-gray-100 bg-white p-8 shadow-sm sm:p-12 lg:p-16">
             {loading ? (
               <SkeletonMain />
             ) : (
-              <div className="flex min-h-[520px] flex-col items-center justify-center text-center">
+              <div className="flex min-h-[600px] flex-col items-center justify-center text-center">
+                {/* Icon */}
                 <div className="relative">
-                  <div className="absolute inset-0 -m-4 rounded-full bg-[#EEF0FF] blur-xl"></div>
-                  <div className="relative inline-flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-[#EEF0FF] to-[#FCE7F3] text-[#23195f] shadow-sm">
-                    <i className="fa-solid fa-box-open text-3xl"></i>
+                  <div className="absolute inset-0 -m-6 rounded-full bg-[#EEF0FF] blur-2xl"></div>
+                  <div className="relative inline-flex h-32 w-32 items-center justify-center rounded-[2rem] bg-gradient-to-br from-[#EEF0FF] to-[#FCE7F3] text-[#23195f] shadow-sm">
+                    <i className="fa-solid fa-box-open text-5xl"></i>
                   </div>
                 </div>
 
-                <h2 className="mt-6 text-2xl font-semibold text-[#141432] sm:text-3xl">
-                  {active ? `No products available in ${active.label}` : "No products available in this section"}
+                {/* Heading */}
+                <h2 className="mt-8 text-3xl font-semibold leading-tight text-[#141432] sm:text-4xl lg:text-[2.5rem]">
+                  {active
+                    ? `No products available in ${active.label}`
+                    : "No products available in this section"}
                 </h2>
 
-                <p className="mt-3 max-w-xl text-sm leading-7 text-slate-500 sm:text-base">
+                {/* Description */}
+                <p className="mt-5 max-w-2xl text-base leading-8 text-slate-500 sm:text-lg">
                   We are currently updating our digital inventory for this department.
                   Please check back later or try using the medication search bar on the left sidebar.
                 </p>
 
+                {/* Active filter chip */}
                 {active && (
-                  <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#EEF0FF] px-4 py-1.5 text-xs font-semibold text-[#23195f]">
+                  <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#EEF0FF] px-5 py-2 text-sm font-semibold text-[#23195f]">
                     <i className="fa-solid fa-filter"></i>
                     {active.type === "category" ? "Category" : "Condition"}: {active.label}
                     <button
@@ -195,10 +208,11 @@ function Shop() {
                   </div>
                 )}
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                {/* Actions */}
+                <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
                   <Link
                     to="/home"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#23195f] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#141444]"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#23195f] px-7 py-3.5 text-base font-semibold text-white shadow-sm transition hover:bg-[#141444]"
                   >
                     <i className="fa-solid fa-house"></i>
                     Back to Home
@@ -208,14 +222,15 @@ function Shop() {
                       const input = document.querySelector('input[placeholder="Search Medication"]');
                       if (input) input.focus();
                     }}
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#23195f] bg-white px-5 py-2.5 text-sm font-semibold text-[#23195f] transition hover:bg-[#EEF0FF]"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#23195f] bg-white px-7 py-3.5 text-base font-semibold text-[#23195f] transition hover:bg-[#EEF0FF]"
                   >
                     <i className="fa-solid fa-magnifying-glass"></i>
                     Search medications
                   </button>
                 </div>
 
-                <p className="mt-8 inline-flex items-center gap-2 text-xs text-slate-400">
+                {/* Helper */}
+                <p className="mt-10 inline-flex items-center gap-2 text-sm text-slate-400">
                   <i className="fa-solid fa-bell"></i>
                   Want an alert when items arrive? Notify me is coming soon.
                 </p>
