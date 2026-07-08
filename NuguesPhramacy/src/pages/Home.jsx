@@ -15,7 +15,7 @@ function Home() {
                 Quality medicines, wellness products and personal pharmacist consultations — delivered with the care your family deserves.
               </p>
 
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center justify-center">
                 <Link
                   to="/Shop"
                   className="inline-flex items-center justify-center rounded-full bg-[#23195f] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#23195f]/20 transition hover:bg-[#141444]"
