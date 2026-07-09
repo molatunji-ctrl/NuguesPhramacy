@@ -25,7 +25,7 @@ function Home() {
   return (
     <main className="bg-[#F9FCFF] text-slate-900">
       <section id="home" className="hero min-h-screen overflow-hidden px-4 py-12 sm:px-6 lg:px-8 flex items-center justify-center text-center">
-        <div className="relative mx-auto w-full max-w-8xl max-h-6xl pt-15 pb-15 rounded-2xl overflow-hidden">
+        <div className="relative mx-auto w-full max-w-7xl max-h-[48rem] pt-15 pb-15 rounded-2xl overflow-hidden">
           <img src={heroImg} alt="" className="absolute inset-0 h-full w-full object-cover filter blur-md scale-105" />
           <div className="absolute inset-0 bg-black/70" aria-hidden="true" />
           <div className="relative z-10 grid items-center gap-12">
