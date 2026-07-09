@@ -128,10 +128,12 @@ const PAYMENT_METHODS = [
 // ══════════════════════════════════════════════════
 function Checkout({
   cart = [],
+  setCart,               // ← new
   deliveryFee = 0,
   vatRate = 0.075,
   currencySymbol = "₦",
-}) {
+})
+ {
   const navigate = useNavigate();
 
   // ── totals ──────────────────────────────────────
@@ -203,6 +205,7 @@ function Checkout({
     setPlacing(true);
     setTimeout(() => {
       setPlacing(false);
+      setCart && setCart([]);     // ← clear the cart
       navigate("/order-success");
     }, 2000);
   };
