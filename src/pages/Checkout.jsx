@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { api } from "./api";
+import { api } from "../service/api";
 
 import verveLogo from "../assets/Icons/verve.png";
 import mastercardLogo from "../assets/Icons/mastercard.jpg";
@@ -163,7 +163,7 @@ function Checkout({
     if (!shipping.email.trim())     errs.email     = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(shipping.email)) errs.email = "Enter a valid email";
     if (!shipping.phone.trim())     errs.phone     = "Phone number is required";
-    else if (!/^\+?[\d\s\-]{10,}$/.test(shipping.phone)) errs.phone = "Enter a valid phone";
+    else if (!/^\+?[\d\s-]{10,}$/.test(shipping.phone)) errs.phone = "Enter a valid phone";
     if (!shipping.address.trim())   errs.address   = "Address is required";
     if (!shipping.city.trim())      errs.city      = "City is required";
     if (!shipping.state)            errs.state     = "Select a state";

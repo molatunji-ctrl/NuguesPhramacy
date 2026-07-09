@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { api, normalizeList, normalizeProduct } from "./api";
+import { api, normalizeList, normalizeProduct } from "../service/api";
 
 const CATEGORIES = [
   { id: "prescription", label: "Prescription" },
@@ -180,7 +180,6 @@ function Shop({ addToCart, addToWishlist, wishlist = [], cartCount = 0 }) {
 
   useEffect(() => {
     let mounted = true;
-    setIsLoading(true);
     api.getProducts()
       .then((data) => {
         if (!mounted) return;

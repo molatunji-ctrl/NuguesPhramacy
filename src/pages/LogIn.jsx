@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import googleIcon from "../assets/Icons/google.ico";
-import { API_BASE, api, saveAuthData } from "./api";
+import { API_BASE, api, saveAuthData } from "../service/api";
 
 function LogIn() {
   const navigate = useNavigate();

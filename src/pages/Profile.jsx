@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { api, clearAuthData } from "./api";
+import { api, clearAuthData } from "../service/api";
 
 function AccountShell({ children }) {
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    try { await api.logout(); } catch {}
+    try { await api.logout(); } catch (err) { console.error(err); }
     clearAuthData();
     navigate("/login", { replace: true });
   };

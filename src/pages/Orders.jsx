@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AccountShell } from "./Profile";
-import { api, normalizeList } from "./api";
+import { api, normalizeList } from "../service/api";
 
 function money(value) {
   return "₦" + Number(value || 0).toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
