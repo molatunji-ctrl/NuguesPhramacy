@@ -6,12 +6,12 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/footer";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/footer";
 import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
 import Orders from "./pages/Orders";
-import { api, normalizeList } from "./api";
+import { api, normalizeList } from "./service/api";
 
 function loadLocalArray(key) {
   try {
