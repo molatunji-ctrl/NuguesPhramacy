@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import verveLogo from "../assets/icons/verve.png";
-import mastercardLogo from "../assets/icons/mastercard.jpg";
-import visaLogo from "../assets/icons/visa.png";
+import verveLogo from "../assets/Icons/verve.png";
+import mastercardLogo from "../assets/Icons/mastercard.jpg";
+import visaLogo from "../assets/Icons/visa.png";
 
 function SkeletonLine() {
   return <div className="skeleton h-5 w-full"></div>;

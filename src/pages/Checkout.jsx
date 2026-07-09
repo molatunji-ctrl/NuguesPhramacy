@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import verveLogo from "../assets/icons/verve.png";
-import mastercardLogo from "../assets/icons/mastercard.jpg";
-import visaLogo from "../assets/icons/visa.png";
+import verveLogo from "../assets/Icons/verve.png";
+import mastercardLogo from "../assets/Icons/mastercard.jpg";
+import visaLogo from "../assets/Icons/visa.png";
 
 // ── helpers ────────────────────────────────────────
 function fmt(n, symbol = "₦") {
