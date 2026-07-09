@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import googleLogo from "../assets/Icons/google.ico";
-
-const API_BASE = import.meta.env.VITE_API_URL || "https://np-backend-4ee5.onrender.com";
+import { API_BASE, api, saveAuthData } from "./api";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -66,34 +65,16 @@ function SignIn() {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          fullname: form.name.trim(),
-          email: form.email.toLowerCase().trim(),
-          password: form.password,
-        }),
+      const data = await api.register({
+        fullname: form.name.trim(),
+        email: form.email.toLowerCase().trim(),
+        password: form.password,
       });
-
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(
-          data.message ||
-            data.error ||
-            `Registration failed (${response.status})`
-        );
-      }
 
       setMessageType("success");
       setMessage(data.message || "Account created successfully!");
 
-      localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("userEmail", form.email.toLowerCase().trim());
+      saveAuthData(data, form.email, form.name);
 
       setTimeout(() => {
         navigate("/home", {

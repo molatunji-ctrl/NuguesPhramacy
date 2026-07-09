@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import googleIcon from "../assets/Icons/google.ico";
-
-const API_BASE = import.meta.env.VITE_API_URL || "https://np-backend-4ee5.onrender.com";
+import { API_BASE, api, saveAuthData } from "./api";
 
 function LogIn() {
   const navigate = useNavigate();
@@ -33,31 +32,15 @@ function LogIn() {
     setMessageType("");
 
     try {
-      const response = await fetch(`${API_BASE}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          email: email.toLowerCase().trim(),
-          password,
-        }),
+      const data = await api.login({
+        email: email.toLowerCase().trim(),
+        password,
       });
-
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(
-          data.message || data.error || `Login failed (${response.status})`
-        );
-      }
 
       setMessageType("success");
       setMessage(data.message || "Login successful");
 
-      localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("userEmail", email.toLowerCase().trim());
+      saveAuthData(data, email);
 
       navigate("/home", { replace: true });
     } catch (error) {

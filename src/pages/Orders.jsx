@@ -1,170 +1,101 @@
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useState } from "react";
-import SignIn from "./SignIn";
-import LogIn from "./LogIn";
-import Home from "./Home";
-import Shop from "./Shop";
-import Cart from "./Cart";
-import Wishlist from "./Wishlist";
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/footer";
-import Checkout from "./Checkout";
-import Profile from "./Profile";
-import Orders from "./Orders";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { AccountShell } from "./Profile";
+import { api, normalizeList } from "./api";
 
-function AppLayout() {
-  const location = useLocation();
-  const ACCOUNT_PAGE_PATHS = ["/signin", "/login", "/profile", "/orders"];
-  const hideNavbar = ACCOUNT_PAGE_PATHS.includes(location.pathname);
-  const hideFooter = hideNavbar;
+function money(value) {
+  return "₦" + Number(value || 0).toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
 
-  // Empty starter state — no seed data
-  const [cart, setCart] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+function getOrderTotal(order) {
+  return order.total || order.totalAmount || order.amount || order.grandTotal || 0;
+}
 
-  const addToCart = (product) => {
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
-        );
-      }
-      return [
-        ...prev,
-        {
-          id: product.id,
-          name: product.name,
-          brand: product.brand || (product.category?.toUpperCase() || "NUGES"),
-          type: product.type || "PHARMACY",
-          price: product.price,
-          qty: 1,
-          image: product.image,
-        },
-      ];
-    });
-  };
+function getOrderItems(order) {
+  return order.items || order.orderItems || order.products || [];
+}
 
-  const addToWishlist = (product) => {
-    setWishlist((prev) => {
-      if (prev.find((i) => i.id === product.id)) return prev;
-      return [
-        ...prev,
-        {
-          id: product.id,
-          name: product.name,
-          brand: product.brand || (product.category?.toUpperCase() || "NUGES"),
-          type: product.type || "PHARMACY",
-          price: product.price,
-          image: product.image,
-          inStock: true,
-        },
-      ];
-    });
-  };
+function Orders() {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const removeFromWishlist = (id) =>
-    setWishlist((prev) => prev.filter((i) => i.id !== id));
+  useEffect(() => {
+    let mounted = true;
+    api.getOrders()
+      .then((data) => {
+        if (!mounted) return;
+        setOrders(normalizeList(data));
+        setError("");
+      })
+      .catch((err) => {
+        if (!mounted) return;
+        setError(err.status === 403 ? "Please sign in to view your orders." : err.message || "Unable to load orders.");
+      })
+      .finally(() => mounted && setLoading(false));
 
-  const moveToCart = (item) => {
-    addToCart(item);
-    removeFromWishlist(item.id);
-  };
-
-  const cartCount = cart.reduce((s, i) => s + i.qty, 0);
+    return () => { mounted = false; };
+  }, []);
 
   return (
-    <>
-      {!hideNavbar && (
-        <Navbar cartCount={cartCount} wishlistCount={wishlist.length} />
-      )}
-      <div className={hideNavbar ? "" : "pt-24"}>
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route
-          path="/home"
-          element={
-            <Home
-              addToCart={addToCart}
-              addToWishlist={addToWishlist}
-              wishlist={wishlist}
-            />
-          }
-        />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/Shop" element={<Shop />} />
-        <Route path="/about"
-          element={
-            <Home
-              addToCart={addToCart}
-              addToWishlist={addToWishlist}
-              wishlist={wishlist}
-            />
-          }
-        />
-        <Route path="/service"
-          element={
-            <Home
-              addToCart={addToCart}
-              addToWishlist={addToWishlist}
-              wishlist={wishlist}
-            />
-          }
-        />
-        <Route path="/contact"
-          element={
-            <Home
-              addToCart={addToCart}
-              addToWishlist={addToWishlist}
-              wishlist={wishlist}
-            />
-          }
-        />
-        <Route
-          path="/cart"
-          element={<Cart cart={cart} setCart={setCart} />}
-        />
-        <Route
-          path="/wishlist"
-          element={
-            <Wishlist
-              wishlist={wishlist}
-              removeFromWishlist={removeFromWishlist}
-              moveToCart={moveToCart}
-              addToCart={addToCart}
-            />
-          }
-        />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/orders" element={<Orders />} />
-
-<Route
-  path="/checkout"
-  element={
-    <Checkout
-      cart={cart}
-      setCart={setCart}
-      deliveryFee={1500}
-      vatRate={0.075}
-      currencySymbol="₦"
-    />
-  }
-/>
-        <Route path="*" element={<Navigate to="/home" replace />} />
-      </Routes>
+    <AccountShell>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-[#141432]">My orders</h1>
+          <p className="mt-2 text-sm text-slate-500">Track your Nuges Pharmaceuticals purchases.</p>
+        </div>
+        <Link to="/shop" className="rounded-full bg-[#23195f] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90">
+          Shop medicines
+        </Link>
       </div>
-      {!hideFooter && <Footer />}
-    </>
+
+      <div className="mt-6 rounded-3xl bg-white p-6 shadow-sm sm:p-8">
+        {loading ? (
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => <div key={i} className="skeleton h-24 w-full rounded-2xl"></div>)}
+          </div>
+        ) : error ? (
+          <div className="rounded-2xl border border-rose-100 bg-rose-50 p-6 text-rose-700">
+            <i className="fa-solid fa-circle-exclamation mr-2"></i>{error}
+          </div>
+        ) : orders.length === 0 ? (
+          <div className="rounded-3xl border-2 border-dashed border-gray-200 p-10 text-center">
+            <i className="fa-solid fa-box-open text-5xl text-slate-300"></i>
+            <h2 className="mt-5 text-xl font-semibold text-[#141432]">No orders yet</h2>
+            <p className="mt-2 text-slate-500">When you place an order, it will appear here.</p>
+            <Link to="/shop" className="mt-6 inline-flex rounded-full bg-[#23195f] px-6 py-3 text-sm font-semibold text-white">
+              Start shopping
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {orders.map((order, index) => {
+              const id = order.id || order._id || order.orderId || `order-${index}`;
+              const items = getOrderItems(order);
+              const status = order.status || order.orderStatus || "Processing";
+              const date = order.createdAt || order.orderDate || order.date;
+              return (
+                <article key={id} className="rounded-2xl border border-gray-100 p-5">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Order</p>
+                      <h3 className="mt-1 font-semibold text-[#141432]">#{String(id).slice(-10)}</h3>
+                      {date && <p className="mt-1 text-sm text-slate-500">{new Date(date).toLocaleDateString("en-NG")}</p>}
+                    </div>
+                    <span className="rounded-full bg-[#EEF0FF] px-4 py-1.5 text-sm font-semibold text-[#23195f]">{status}</span>
+                  </div>
+                  <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t pt-4">
+                    <p className="text-sm text-slate-500">{items.length} {items.length === 1 ? "item" : "items"}</p>
+                    <p className="text-lg font-bold text-[#23195f]">{money(getOrderTotal(order))}</p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </AccountShell>
   );
 }
 
-function App() {
-  return (
-    <BrowserRouter>
-      <AppLayout />
-    </BrowserRouter>
-  );
-}
-
-export default App;
+export default Orders;
