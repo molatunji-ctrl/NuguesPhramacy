@@ -18,7 +18,7 @@ function fmt(n, symbol = "₦") {
 
 function InputField({ label, id, type = "text", placeholder, value, onChange, error, half }) {
   return (
-    <div className={half ? "col-span-1" : "col-span-2"}>
+    <div className={half ? "col-span-2 sm:col-span-1" : "col-span-2"}>
       <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-[#141432]">
         {label}
       </label>
@@ -41,7 +41,7 @@ function InputField({ label, id, type = "text", placeholder, value, onChange, er
 
 function SelectField({ label, id, value, onChange, error, children, half }) {
   return (
-    <div className={half ? "col-span-1" : "col-span-2"}>
+    <div className={half ? "col-span-2 sm:col-span-1" : "col-span-2"}>
       <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-[#141432]">
         {label}
       </label>
@@ -128,6 +128,7 @@ const PAYMENT_METHODS = [
 // ══════════════════════════════════════════════════
 function Checkout({
   cart = [],
+  setCart,
   deliveryFee = 0,
   vatRate = 0.075,
   currencySymbol = "₦",
@@ -203,6 +204,7 @@ function Checkout({
     setPlacing(true);
     setTimeout(() => {
       setPlacing(false);
+      setCart && setCart([]);
       navigate("/order-success");
     }, 2000);
   };
@@ -343,19 +345,19 @@ function Checkout({
                 </p>
 
                 {/* method tabs */}
-                <div className="mt-8 grid grid-cols-3 gap-3">
+                <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   {PAYMENT_METHODS.map((m) => (
                     <button
                       key={m.id}
                       onClick={() => setPayMethod(m.id)}
-                      className={`flex flex-col items-center gap-2 rounded-2xl border-2 p-4 text-sm font-semibold transition ${
+                      className={`flex flex-row items-center gap-3 rounded-2xl border-2 p-4 text-sm font-semibold transition sm:flex-col sm:gap-2 ${
                         payMethod === m.id
                           ? "border-[#23195f] bg-[#EEF0FF] text-[#23195f]"
                           : "border-gray-200 bg-white text-slate-500 hover:border-[#23195f]/40"
                       }`}
                     >
                       <i className={`${m.icon} text-xl`}></i>
-                      <span className="text-center text-xs leading-tight">{m.label}</span>
+                      <span className="text-left text-xs leading-tight sm:text-center">{m.label}</span>
                     </button>
                   ))}
                 </div>
@@ -413,7 +415,7 @@ function Checkout({
                     </div>
 
                     {/* expiry + cvv */}
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       <div>
                         <label className="mb-1.5 block text-sm font-semibold text-[#141432]">
                           Expiry Date

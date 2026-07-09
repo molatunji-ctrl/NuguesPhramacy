@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function formatPrice(n) {
-  return "$" + n.toFixed(2);
+  return "₦" + n.toLocaleString("en-NG", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }
 
 function SkeletonCard() {
@@ -160,6 +163,6 @@ function Wishlist({ wishlist = [], removeFromWishlist, moveToCart, addToCart }) 
       </div>
     </section>
   );
-}
+};
 
 export default Wishlist;

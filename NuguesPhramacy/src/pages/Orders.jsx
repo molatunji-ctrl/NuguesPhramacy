@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import SignIn from "./pages/SignIn";
-import LogIn from "./pages/LogIn";
-import Home from "./pages/Home";
-import Shop from "./pages/Shop";
-import Cart from "./pages/Cart";
-import Wishlist from "./pages/Wishlist";
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/footer";
-import Checkout from "./pages/Checkout";
-import Profile from "./pages/Profile";
-import Orders from "./pages/Orders";
+import SignIn from "./SignIn";
+import LogIn from "./LogIn";
+import Home from "./Home";
+import Shop from "./Shop";
+import Cart from "./Cart";
+import Wishlist from "./Wishlist";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/footer";
+import Checkout from "./Checkout";
+import Profile from "./Profile";
+import Orders from "./Orders";
 
 function AppLayout() {
   const location = useLocation();

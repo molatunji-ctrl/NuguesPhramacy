@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer className="border-t border-gray-200 bg-white text-gray-700">
       <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 xl:grid-cols-[2fr_1fr_1fr_1fr] xl:items-start">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-[2fr_1fr_1fr_1fr] xl:items-start">
           <div className="space-y-4">
             <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#23195f] text-lg font-semibold text-white">
               N
@@ -38,13 +38,13 @@ function Footer() {
             <h3 className="text-sm font-semibold text-[#23195f]">Company</h3>
             <ul className="mt-5 space-y-3 text-sm text-gray-600">
               <li>
-                <Link to="/About" className="hover:text-[#23195f]">About us</Link>
+                <a href="/about" className="hover:text-[#23195f]">About us</a>
               </li>
               <li>
-                <Link to="/Service" className="hover:text-[#23195f]">Services</Link>
+                <a href="/service" className="hover:text-[#23195f]">Services</a>
               </li>
               <li>
-                <Link to="/Contact" className="hover:text-[#23195f]">Contact</Link>
+                <a href="/contact" className="hover:text-[#23195f]">Contact</a>
               </li>
               <li>
                 <a href="#" className="hover:text-[#23195f]">Careers</a>
