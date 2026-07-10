@@ -136,7 +136,11 @@ function SignIn() {
             <div className="absolute left-0 right-0 top-1/2 border-t border-gray-200"></div>
           </div>
 
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={handleSubmit}
+            noValidate
+          >
             <div>
               <label htmlFor="name" className="sr-only">
                 Full Name

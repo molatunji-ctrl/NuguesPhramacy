@@ -40,7 +40,7 @@ function LogIn() {
       setMessageType("success");
       setMessage(data.message || "Login successful");
 
-      saveAuthData(data, email);
+      saveAuthData(data, email.toLowerCase().trim());
 
       navigate("/home", { replace: true });
     } catch (error) {
