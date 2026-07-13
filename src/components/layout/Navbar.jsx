@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { clearAuthData } from "../service/api";
+import { clearAuthData } from "../../service/api";
 
 function Navbar({ cartCount = 0, wishlistCount = 0 }) {
   const [open, setOpen] = useState(false);
