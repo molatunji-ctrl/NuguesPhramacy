@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import googleIcon from "../assets/Icons/google.ico";
 import { API_BASE, api, saveAuthData } from "../service/api";
 
@@ -32,15 +33,17 @@ function LogIn() {
     setMessageType("");
 
     try {
+      const cleanEmail = email.toLowerCase().trim();
+
       const data = await api.login({
-        email: email.toLowerCase().trim(),
+        email: cleanEmail,
         password,
       });
 
+      saveAuthData(data, cleanEmail);
+
       setMessageType("success");
       setMessage(data.message || "Login successful");
-
-      saveAuthData(data, email.toLowerCase().trim());
 
       navigate("/home", { replace: true });
     } catch (error) {
@@ -167,10 +170,11 @@ function LogIn() {
 
         <div className="mt-4 flex items-center justify-center">
           <Link
-            to="/"
+            to="/home"
             className="text-sm text-[#6A7282] transition-colors duration-200 hover:text-[#1B1967]"
           >
-            <i className="fa-solid fa-arrow-left-long"></i> Back to Home
+            <i className="fa-solid fa-arrow-left-long mr-1.5"></i>
+            Back to Home
           </Link>
         </div>
       </div>

@@ -1,42 +1,43 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { clearAuthData } from "../service/api";
 
 function Navbar({ cartCount = 0, wishlistCount = 0 }) {
   const [open, setOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkLogin = () => {
       const token = localStorage.getItem("token");
       const user = localStorage.getItem("user");
+      const isAuthenticated = localStorage.getItem("isAuthenticated");
 
-      if (token || user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+      setIsLoggedIn(!!token || !!user || isAuthenticated === "true");
     };
 
     checkLogin();
 
-    window.addEventListener("storage", checkLogin);
     window.addEventListener("authChange", checkLogin);
+    window.addEventListener("storage", checkLogin);
 
     return () => {
-      window.removeEventListener("storage", checkLogin);
       window.removeEventListener("authChange", checkLogin);
+      window.removeEventListener("storage", checkLogin);
     };
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    setIsLoggedIn(false);
-    window.dispatchEvent(new Event("authChange"));
-
-    navigate("/signin");
+  const handleLogout = async () => {
+    try {
+      clearAuthData();
+      setIsLoggedIn(false);
+      navigate("/signin");
+    } catch (error) {
+      clearAuthData();
+      setIsLoggedIn(false);
+      navigate("/signin");
+    }
   };
 
   const linkClass = ({ isActive }) => {
@@ -112,7 +113,6 @@ function Navbar({ cartCount = 0, wishlistCount = 0 }) {
       <div className="flex items-center gap-3 rounded-full bg-white/60 backdrop-blur-md border border-white/40 px-3 py-2 shadow-sm">
         {isLoggedIn ? (
           <>
-            {/* Account button after login */}
             <Link
               to="/account"
               className="flex items-center gap-2 rounded-full bg-white/70 border border-gray-200 px-5 py-2 text-gray-900 font-medium hover:bg-white transition"
@@ -121,8 +121,8 @@ function Navbar({ cartCount = 0, wishlistCount = 0 }) {
               <span className="hidden sm:inline">Account</span>
             </Link>
 
-            {/* Logout icon after login */}
             <button
+              type="button"
               onClick={handleLogout}
               className="h-12 w-12 rounded-full bg-[#f4f7fb] flex items-center justify-center text-gray-900 hover:bg-gray-200 transition"
               title="Logout"
@@ -131,7 +131,6 @@ function Navbar({ cartCount = 0, wishlistCount = 0 }) {
             </button>
           </>
         ) : (
-          /* Sign In button before login */
           <Link
             to="/signin"
             className="flex items-center gap-2 rounded-full bg-[#23195f] px-7 py-3 text-white font-medium hover:bg-[#1b124d] transition"
@@ -141,7 +140,6 @@ function Navbar({ cartCount = 0, wishlistCount = 0 }) {
           </Link>
         )}
 
-        {/* Wishlist */}
         <Link
           to="/wishlist"
           className="relative h-12 w-12 rounded-full bg-[#f4f7fb] flex items-center justify-center text-gray-900 hover:bg-gray-200 transition"
@@ -155,7 +153,6 @@ function Navbar({ cartCount = 0, wishlistCount = 0 }) {
           )}
         </Link>
 
-        {/* Cart */}
         <Link
           to="/cart"
           className="relative h-12 w-12 rounded-full bg-[#f4f7fb] flex items-center justify-center text-gray-900 hover:bg-gray-200 transition"
@@ -169,8 +166,8 @@ function Navbar({ cartCount = 0, wishlistCount = 0 }) {
           )}
         </Link>
 
-        {/* Mobile menu button */}
         <button
+          type="button"
           onClick={() => setOpen(!open)}
           className="lg:hidden h-12 w-12 rounded-full bg-[#f4f7fb] flex items-center justify-center"
         >
@@ -235,6 +232,7 @@ function Navbar({ cartCount = 0, wishlistCount = 0 }) {
                 </Link>
 
                 <button
+                  type="button"
                   onClick={() => {
                     setOpen(false);
                     handleLogout();

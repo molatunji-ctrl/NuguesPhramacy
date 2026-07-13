@@ -1,7 +1,8 @@
 import axios from "axios";
 
-export const API_BASE =
-  import.meta.env.VITE_API_URL || "https://np-backend-qnrv.onrender.com";
+export const API_BASE = (
+  import.meta.env.VITE_API_URL || "https://np-backend-qnrv.onrender.com"
+).replace(/\/$/, "");
 
 const axiosClient = axios.create({
   baseURL: `${API_BASE}/api`,
@@ -47,25 +48,35 @@ export function saveAuthData(data = {}, fallbackEmail = "", fallbackName = "") {
     data?.data?.token ||
     data?.data?.accessToken;
 
-  const user = data.user || data.data?.user || data.data || data;
+  const user = data.user || data?.data?.user || data?.data || data;
+
+  const email = (user?.email || fallbackEmail || "").toLowerCase().trim();
+
+  const name =
+    user?.fullname ||
+    user?.fullName ||
+    user?.name ||
+    fallbackName ||
+    "User";
 
   if (token) {
     localStorage.setItem("token", token);
   }
 
   localStorage.setItem("isAuthenticated", "true");
+  localStorage.setItem("userEmail", email);
+  localStorage.setItem("userName", name);
 
   localStorage.setItem(
-    "userEmail",
-    (user?.email || fallbackEmail || "").toLowerCase().trim()
+    "user",
+    JSON.stringify({
+      ...user,
+      email,
+      name,
+    })
   );
 
-  if (user?.fullname || user?.fullName || user?.name || fallbackName) {
-    localStorage.setItem(
-      "userName",
-      user?.fullname || user?.fullName || user?.name || fallbackName
-    );
-  }
+  window.dispatchEvent(new Event("authChange"));
 }
 
 export function clearAuthData() {
@@ -76,9 +87,12 @@ export function clearAuthData() {
     "isAuthenticated",
     "userEmail",
     "userName",
+    "user",
   ].forEach((key) => {
     localStorage.removeItem(key);
   });
+
+  window.dispatchEvent(new Event("authChange"));
 }
 
 export async function apiRequest(path, options = {}) {
@@ -146,7 +160,8 @@ export const api = {
       },
     }),
 
-  getWishlist: () => tryApi(["/wishlist", "/wishlists/me", "/user/wishlist"]),
+  getWishlist: () =>
+    tryApi(["/wishlist", "/wishlists/me", "/user/wishlist"]),
 
   saveWishlist: (wishlist) =>
     tryApi(["/wishlist", "/wishlists/me", "/user/wishlist"], {
@@ -157,7 +172,8 @@ export const api = {
       },
     }),
 
-  getProfile: () => tryApi(["/profile", "/user/profile", "/users/me", "/auth/me"]),
+  getProfile: () =>
+    tryApi(["/profile", "/user/profile", "/users/me", "/auth/me"]),
 
   updateProfile: (profile) =>
     tryApi(["/profile", "/user/profile", "/users/me"], {
@@ -165,7 +181,8 @@ export const api = {
       data: profile,
     }),
 
-  getOrders: () => tryApi(["/orders", "/order", "/user/orders", "/orders/me"]),
+  getOrders: () =>
+    tryApi(["/orders", "/order", "/user/orders", "/orders/me"]),
 
   createOrder: (order) =>
     tryApi(["/orders", "/order", "/checkout"], {
